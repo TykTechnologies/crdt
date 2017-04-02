@@ -1,6 +1,9 @@
 package crdt
 
-import "testing"
+import (
+	"testing"
+	"encoding/json"
+)
 
 func TestGCounter(t *testing.T) {
 	for _, tt := range []struct {
@@ -51,4 +54,26 @@ func TestGCounterInvalidInput(t *testing.T) {
 	}()
 
 	gc.IncVal(-5)
+}
+
+func TestGCounterMarshaller(t *testing.T) {
+	gc := NewGCounter()
+	gc.Inc()
+	gc.Inc()
+
+	var asJson []byte
+	var err error
+	asJson, err = json.Marshal(gc); if err != nil {
+		t.Fatal(err)
+	}
+
+	var gc2 GCounter
+	if err := json.Unmarshal(asJson, &gc2); err != nil {
+		t.Fatal(err)
+	}
+
+	gc2.Inc()
+	if gc2.Count() != 3 {
+		t.Fatalf("Counter should be 3! Is: %v\n", gc2.Count())
+	}
 }
