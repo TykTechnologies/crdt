@@ -1,8 +1,8 @@
 package crdt
 
 import (
-	"github.com/satori/go.uuid"
 	"encoding/json"
+	"github.com/satori/go.uuid"
 )
 
 // GCounter represent a G-counter in CRDT, which is
@@ -21,14 +21,14 @@ type GCounter struct {
 // jsonGCounter is a private struct that duplicates the private members of GCounter as
 // externalised fields
 type jsonGCounter struct {
-	Ident string `json:"ident"`
+	Ident   string         `json:"ident"`
 	Counter map[string]int `json:"counter"`
 }
 
 // MarshalJSON implements Marshaller on GCounter via a `jsonGCounter`
 func (g GCounter) MarshalJSON() ([]byte, error) {
 	return json.Marshal(jsonGCounter{
-		Ident: g.ident,
+		Ident:   g.ident,
 		Counter: g.counter,
 	})
 }

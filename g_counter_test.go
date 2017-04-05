@@ -1,8 +1,8 @@
 package crdt
 
 import (
-	"testing"
 	"encoding/json"
+	"testing"
 )
 
 func TestGCounter(t *testing.T) {
@@ -63,7 +63,8 @@ func TestGCounterMarshaller(t *testing.T) {
 
 	var asJson []byte
 	var err error
-	asJson, err = json.Marshal(gc); if err != nil {
+	asJson, err = json.Marshal(gc)
+	if err != nil {
 		t.Fatal(err)
 	}
 
